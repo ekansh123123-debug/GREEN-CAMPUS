@@ -528,11 +528,8 @@ async function simulateDemoResponse(endpoint, options = {}) {
     throw new ApiError('Transaction not found', 404);
   }
 
-  // Analytics: GET /analytics/overview
+  // Analytics: GET /analytics/overview (Public campus sustainability stats visible to all authenticated users)
   if (endpoint.startsWith('/analytics')) {
-    if (currentUser.role !== 'admin') {
-      throw new ApiError('Forbidden: Only administrators can view sustainability analytics.', 403);
-    }
     return demoAnalytics;
   }
 

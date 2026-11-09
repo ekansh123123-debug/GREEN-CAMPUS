@@ -145,20 +145,20 @@ export default function AdminOverviewPage() {
       />
 
       {/* Tabs */}
-      <div className="flex border-b border-slate-200 mb-6 gap-2">
+      <div className="flex border-b border-slate-200 mb-6 gap-2 overflow-x-auto pb-0.5">
         <button
           type="button"
           onClick={() => setActiveTab('users')}
-          className={`pb-3 px-4 text-sm font-semibold border-b-2 flex items-center gap-2 transition-colors ${
+          className={`pb-3 px-3 sm:px-4 text-xs sm:text-sm font-semibold border-b-2 flex items-center gap-1.5 sm:gap-2 transition-colors shrink-0 ${
             activeTab === 'users'
               ? 'border-campus-600 text-campus-800'
               : 'border-transparent text-slate-500 hover:text-slate-800'
           }`}
         >
-          <UserCheck className="w-4 h-4" />
-          User Verification
+          <UserCheck className="w-4 h-4 shrink-0" />
+          <span>User Verification</span>
           {unverifiedUsers.length > 0 && (
-            <span className="px-2 py-0.5 text-xs rounded-full bg-amber-100 text-amber-900 font-bold">
+            <span className="px-2 py-0.5 text-[11px] rounded-full bg-amber-100 text-amber-900 font-bold">
               {unverifiedUsers.length}
             </span>
           )}
@@ -167,16 +167,16 @@ export default function AdminOverviewPage() {
         <button
           type="button"
           onClick={() => setActiveTab('triage')}
-          className={`pb-3 px-4 text-sm font-semibold border-b-2 flex items-center gap-2 transition-colors ${
+          className={`pb-3 px-3 sm:px-4 text-xs sm:text-sm font-semibold border-b-2 flex items-center gap-1.5 sm:gap-2 transition-colors shrink-0 ${
             activeTab === 'triage'
               ? 'border-campus-600 text-campus-800'
               : 'border-transparent text-slate-500 hover:text-slate-800'
           }`}
         >
-          <AlertCircle className="w-4 h-4" />
-          Issue Triage Queue
+          <AlertCircle className="w-4 h-4 shrink-0" />
+          <span>Issue Triage Queue</span>
           {unassignedIssues.length > 0 && (
-            <span className="px-2 py-0.5 text-xs rounded-full bg-rose-100 text-rose-900 font-bold">
+            <span className="px-2 py-0.5 text-[11px] rounded-full bg-rose-100 text-rose-900 font-bold">
               {unassignedIssues.length}
             </span>
           )}
@@ -185,14 +185,14 @@ export default function AdminOverviewPage() {
         <button
           type="button"
           onClick={() => setActiveTab('marketplace')}
-          className={`pb-3 px-4 text-sm font-semibold border-b-2 flex items-center gap-2 transition-colors ${
+          className={`pb-3 px-3 sm:px-4 text-xs sm:text-sm font-semibold border-b-2 flex items-center gap-1.5 sm:gap-2 transition-colors shrink-0 ${
             activeTab === 'marketplace'
               ? 'border-campus-600 text-campus-800'
               : 'border-transparent text-slate-500 hover:text-slate-800'
           }`}
         >
-          <ShoppingBag className="w-4 h-4" />
-          Marketplace Moderation
+          <ShoppingBag className="w-4 h-4 shrink-0" />
+          <span>Marketplace Moderation</span>
         </button>
       </div>
 
@@ -219,56 +219,109 @@ export default function AdminOverviewPage() {
                   No pending user verifications. All campus accounts are up to date.
                 </div>
               ) : (
-                <div className="overflow-x-auto">
-                  <table className="w-full text-left text-xs">
-                    <thead className="bg-slate-50 text-slate-600 font-semibold border-b border-slate-200">
-                      <tr>
-                        <th className="py-3 px-4">Name & Role</th>
-                        <th className="py-3 px-4">Institutional Email</th>
-                        <th className="py-3 px-4">Student / Staff ID</th>
-                        <th className="py-3 px-4">Department</th>
-                        <th className="py-3 px-4">Status</th>
-                        <th className="py-3 px-4 text-right">Action</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-slate-100 text-slate-700">
-                      {pendingUsers.map((u) => (
-                        <tr key={u.id} className="hover:bg-slate-50/50">
-                          <td className="py-3 px-4">
-                            <strong className="text-slate-900 block">{u.name}</strong>
-                            <span className="text-[11px] text-slate-500 capitalize">{u.role}</span>
-                          </td>
-                          <td className="py-3 px-4 font-mono text-[11px] text-slate-800">{u.email}</td>
-                          <td className="py-3 px-4 font-medium text-slate-800">{u.student_id}</td>
-                          <td className="py-3 px-4">{u.department}</td>
-                          <td className="py-3 px-4">
-                            {u.is_verified ? (
-                              <span className="inline-flex items-center gap-1 text-emerald-700 font-semibold text-[11px]">
-                                <CheckCircle2 className="w-3.5 h-3.5" /> Verified
-                              </span>
-                            ) : (
-                              <span className="inline-flex items-center gap-1 text-amber-700 font-semibold text-[11px]">
-                                <Clock className="w-3.5 h-3.5" /> Awaiting Review
-                              </span>
-                            )}
-                          </td>
-                          <td className="py-3 px-4 text-right">
-                            {!u.is_verified && (
-                              <Button
-                                size="sm"
-                                variant="primary"
-                                icon={CheckCircle2}
-                                onClick={() => handleVerifyUser(u.id)}
-                              >
-                                Approve Account
-                              </Button>
-                            )}
-                          </td>
+                <>
+                  {/* Mobile Card List (md:hidden) */}
+                  <div className="space-y-3 md:hidden">
+                    {pendingUsers.map((u) => (
+                      <div
+                        key={u.id}
+                        className="p-4 rounded-xl border border-slate-200 bg-slate-50/60 space-y-2.5"
+                      >
+                        <div className="flex items-start justify-between gap-2">
+                          <div>
+                            <strong className="text-sm font-semibold text-slate-900 block">
+                              {u.name}
+                            </strong>
+                            <span className="text-xs text-slate-500 capitalize">{u.role}</span>
+                          </div>
+                          {u.is_verified ? (
+                            <span className="inline-flex items-center gap-1 text-emerald-700 font-semibold text-xs px-2 py-0.5 rounded bg-emerald-50 border border-emerald-200">
+                              <CheckCircle2 className="w-3.5 h-3.5" /> Verified
+                            </span>
+                          ) : (
+                            <span className="inline-flex items-center gap-1 text-amber-700 font-semibold text-xs px-2 py-0.5 rounded bg-amber-50 border border-amber-200">
+                              <Clock className="w-3.5 h-3.5" /> Pending
+                            </span>
+                          )}
+                        </div>
+
+                        <div className="text-xs space-y-1 text-slate-600">
+                          <p className="font-mono text-[11px] text-slate-700 break-all">{u.email}</p>
+                          <div className="flex items-center justify-between text-slate-500 text-[11px]">
+                            <span>ID: <strong className="text-slate-800">{u.student_id}</strong></span>
+                            <span>{u.department}</span>
+                          </div>
+                        </div>
+
+                        {!u.is_verified && (
+                          <div className="pt-2 border-t border-slate-200">
+                            <Button
+                              size="sm"
+                              variant="primary"
+                              icon={CheckCircle2}
+                              onClick={() => handleVerifyUser(u.id)}
+                              className="w-full min-h-[44px]"
+                            >
+                              Approve Account
+                            </Button>
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Desktop Table View (hidden md:block) */}
+                  <div className="overflow-x-auto hidden md:block">
+                    <table className="w-full text-left text-xs">
+                      <thead className="bg-slate-50 text-slate-600 font-semibold border-b border-slate-200">
+                        <tr>
+                          <th className="py-3 px-4">Name & Role</th>
+                          <th className="py-3 px-4">Institutional Email</th>
+                          <th className="py-3 px-4">Student / Staff ID</th>
+                          <th className="py-3 px-4">Department</th>
+                          <th className="py-3 px-4">Status</th>
+                          <th className="py-3 px-4 text-right">Action</th>
                         </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
+                      </thead>
+                      <tbody className="divide-y divide-slate-100 text-slate-700">
+                        {pendingUsers.map((u) => (
+                          <tr key={u.id} className="hover:bg-slate-50/50">
+                            <td className="py-3 px-4">
+                              <strong className="text-slate-900 block">{u.name}</strong>
+                              <span className="text-[11px] text-slate-500 capitalize">{u.role}</span>
+                            </td>
+                            <td className="py-3 px-4 font-mono text-[11px] text-slate-800">{u.email}</td>
+                            <td className="py-3 px-4 font-medium text-slate-800">{u.student_id}</td>
+                            <td className="py-3 px-4">{u.department}</td>
+                            <td className="py-3 px-4">
+                              {u.is_verified ? (
+                                <span className="inline-flex items-center gap-1 text-emerald-700 font-semibold text-[11px]">
+                                  <CheckCircle2 className="w-3.5 h-3.5" /> Verified
+                                </span>
+                              ) : (
+                                <span className="inline-flex items-center gap-1 text-amber-700 font-semibold text-[11px]">
+                                  <Clock className="w-3.5 h-3.5" /> Awaiting Review
+                                </span>
+                              )}
+                            </td>
+                            <td className="py-3 px-4 text-right">
+                              {!u.is_verified && (
+                                <Button
+                                  size="sm"
+                                  variant="primary"
+                                  icon={CheckCircle2}
+                                  onClick={() => handleVerifyUser(u.id)}
+                                >
+                                  Approve Account
+                                </Button>
+                              )}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </>
               )}
             </div>
           )}

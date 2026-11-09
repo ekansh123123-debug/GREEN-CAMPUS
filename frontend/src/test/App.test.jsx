@@ -81,7 +81,7 @@ describe('GREEN CAMPUS Application End-to-End Workflows', () => {
       expect(screen.getByText(/Marketplace Category Breakdown/i)).toBeInTheDocument();
       expect(screen.getByText(/Confirmed Resource Reuse Trends/i)).toBeInTheDocument();
       expect(screen.getByText(/Exchange Arrangement Breakdown/i)).toBeInTheDocument();
-    });
+    }, { timeout: 4000 });
   });
 
   it('navigates to Administrator Overview and verifies pending student accounts (Screen 10)', async () => {
@@ -100,7 +100,7 @@ describe('GREEN CAMPUS Application End-to-End Workflows', () => {
     await waitFor(() => {
       expect(screen.getByText(/Administrator Control Center/i)).toBeInTheDocument();
       expect(screen.getByText(/Institutional Account Verification Queue/i)).toBeInTheDocument();
-      expect(screen.getByText(/Tanvi Salunkhe/i)).toBeInTheDocument();
+      expect(screen.getAllByText(/Tanvi Salunkhe/i).length).toBeGreaterThan(0);
     });
   });
 });

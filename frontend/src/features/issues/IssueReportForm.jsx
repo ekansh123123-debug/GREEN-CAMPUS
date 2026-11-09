@@ -143,16 +143,16 @@ export default function IssueReportForm() {
   };
 
   return (
-    <div className="max-w-3xl mx-auto px-4 py-8">
+    <div className="max-w-3xl mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-8">
       <PageHeader
         title="Report Campus Issue"
         description="Submit a maintenance or facility concern to campus administration and maintenance staff. Deterministic duplicate checking is active."
       />
 
       {similarIssues.length > 0 && (
-        <div className="mb-6 p-4 rounded-lg bg-amber-50 border border-amber-200 text-amber-900 text-xs flex items-center justify-between gap-3">
-          <div className="flex items-center gap-2">
-            <Search className="w-4 h-4 text-amber-700 shrink-0" />
+        <div className="mb-6 p-4 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 text-xs sm:text-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-xs">
+          <div className="flex items-center gap-2.5">
+            <Search className="w-5 h-5 text-amber-700 shrink-0" />
             <span>
               <strong>{similarIssues.length} similar active issue(s)</strong> already logged in{' '}
               {building} ({floor}).
@@ -161,7 +161,7 @@ export default function IssueReportForm() {
           <Button
             size="sm"
             variant="outline"
-            className="border-amber-400 text-amber-900 hover:bg-amber-100 shrink-0"
+            className="w-full sm:w-auto border-amber-400 text-amber-900 hover:bg-amber-100 shrink-0 min-h-[38px]"
             onClick={() => setShowSimilarModal(true)}
           >
             Review Existing
@@ -170,12 +170,12 @@ export default function IssueReportForm() {
       )}
 
       {errors.form && (
-        <div className="mb-6 p-4 rounded-lg bg-rose-50 border border-rose-200 text-rose-700 text-sm">
+        <div className="mb-6 p-4 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-sm">
           {errors.form}
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="bg-white p-6 rounded-xl border border-slate-200 shadow-xs space-y-6">
+      <form onSubmit={handleSubmit} className="bg-white p-4 sm:p-6 rounded-xl border border-slate-200 shadow-xs space-y-5 sm:space-y-6">
         {/* Category & Location */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <FormField label="Category" id="category" required>
@@ -186,7 +186,7 @@ export default function IssueReportForm() {
                 setCategory(e.target.value);
                 setHasDismissedSimilar(false);
               }}
-              className="w-full px-3 py-2 border border-slate-300 rounded-md text-sm focus:border-campus-600 focus:ring-1 focus:ring-campus-600 bg-white"
+              className="w-full min-h-[44px] px-3.5 py-2.5 border border-slate-300 rounded-lg text-base sm:text-sm focus:border-campus-600 focus:ring-1 focus:ring-campus-600 bg-white"
             >
               {ISSUE_CATEGORIES.map((cat) => (
                 <option key={cat} value={cat}>
@@ -204,7 +204,7 @@ export default function IssueReportForm() {
                 setBuilding(e.target.value);
                 setHasDismissedSimilar(false);
               }}
-              className="w-full px-3 py-2 border border-slate-300 rounded-md text-sm focus:border-campus-600 focus:ring-1 focus:ring-campus-600 bg-white"
+              className="w-full min-h-[44px] px-3.5 py-2.5 border border-slate-300 rounded-lg text-base sm:text-sm focus:border-campus-600 focus:ring-1 focus:ring-campus-600 bg-white"
             >
               {CAMPUS_BUILDINGS.map((b) => (
                 <option key={b} value={b}>
@@ -224,7 +224,7 @@ export default function IssueReportForm() {
                 setFloor(e.target.value);
                 setHasDismissedSimilar(false);
               }}
-              className="w-full px-3 py-2 border border-slate-300 rounded-md text-sm focus:border-campus-600 focus:ring-1 focus:ring-campus-600 bg-white"
+              className="w-full min-h-[44px] px-3.5 py-2.5 border border-slate-300 rounded-lg text-base sm:text-sm focus:border-campus-600 focus:ring-1 focus:ring-campus-600 bg-white"
             >
               {CAMPUS_FLOORS.map((f) => (
                 <option key={f} value={f}>
@@ -247,7 +247,7 @@ export default function IssueReportForm() {
               value={roomArea}
               onChange={(e) => setRoomArea(e.target.value)}
               placeholder="E.g., Room 204"
-              className="w-full px-3 py-2 border border-slate-300 rounded-md text-sm focus:border-campus-600 focus:ring-1 focus:ring-campus-600"
+              className="w-full min-h-[44px] px-3.5 py-2.5 border border-slate-300 rounded-lg text-base sm:text-sm focus:border-campus-600 focus:ring-1 focus:ring-campus-600"
             />
           </FormField>
         </div>
@@ -266,7 +266,7 @@ export default function IssueReportForm() {
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder="E.g., Broken water faucet leaking in ground floor corridor"
-            className="w-full px-3 py-2 border border-slate-300 rounded-md text-sm focus:border-campus-600 focus:ring-1 focus:ring-campus-600"
+            className="w-full min-h-[44px] px-3.5 py-2.5 border border-slate-300 rounded-lg text-base sm:text-sm focus:border-campus-600 focus:ring-1 focus:ring-campus-600"
           />
         </FormField>
 
@@ -283,7 +283,7 @@ export default function IssueReportForm() {
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             placeholder="Provide specific details to help the maintenance team bring the right tools and replacement parts..."
-            className="w-full px-3 py-2 border border-slate-300 rounded-md text-sm focus:border-campus-600 focus:ring-1 focus:ring-campus-600"
+            className="w-full p-3.5 border border-slate-300 rounded-lg text-base sm:text-sm focus:border-campus-600 focus:ring-1 focus:ring-campus-600"
           />
         </FormField>
 
@@ -295,11 +295,11 @@ export default function IssueReportForm() {
           onClear={handleClearImage}
         />
 
-        <div className="pt-4 border-t border-slate-100 flex items-center justify-end gap-3">
-          <Button variant="secondary" onClick={() => navigate('/issues')} disabled={submitting}>
+        <div className="pt-4 border-t border-slate-100 flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-end gap-2.5 sm:gap-3">
+          <Button variant="secondary" onClick={() => navigate('/issues')} disabled={submitting} className="w-full sm:w-auto">
             Cancel
           </Button>
-          <Button type="submit" variant="primary" loading={submitting} icon={Send}>
+          <Button type="submit" variant="primary" loading={submitting} icon={Send} className="w-full sm:w-auto">
             Submit Issue Report
           </Button>
         </div>

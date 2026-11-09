@@ -193,12 +193,12 @@ export default function MarketplaceDetailPage() {
   const myPendingRequest = item.requests?.find((r) => r.requester_id === user?.id);
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8">
+    <div className="max-w-4xl mx-auto px-3 sm:px-6 py-4 sm:py-8">
       <Link
         to="/marketplace"
-        className="inline-flex items-center gap-1 text-xs text-slate-500 hover:text-slate-800 mb-4"
+        className="inline-flex items-center gap-1.5 min-h-[36px] text-xs font-medium text-slate-600 hover:text-slate-900 mb-3"
       >
-        <ArrowLeft className="w-3.5 h-3.5" /> Back to Marketplace Catalog
+        <ArrowLeft className="w-4 h-4" /> Back to Marketplace Catalog
       </Link>
 
       <div className="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-xs mb-6">
@@ -306,19 +306,19 @@ export default function MarketplaceDetailPage() {
             {/* Request Button for non-owner students when Available */}
             {!isOwner && role === 'student' && item.status === 'Available' && !myPendingRequest && (
               <form onSubmit={handleSendRequest} className="mt-6 pt-4 border-t border-slate-100">
-                <label htmlFor="req-msg" className="block text-xs font-semibold text-slate-700 mb-1">
+                <label htmlFor="req-msg" className="block text-xs font-semibold text-slate-700 mb-1.5">
                   Message to Owner:
                 </label>
-                <div className="flex gap-2">
+                <div className="flex flex-col sm:flex-row gap-2">
                   <input
                     type="text"
                     id="req-msg"
                     value={requestMessage}
                     onChange={(e) => setRequestMessage(e.target.value)}
                     placeholder="E.g., I'd like to take this for 3rd semester..."
-                    className="flex-1 px-3 py-1.5 border border-slate-300 rounded-md text-xs"
+                    className="flex-1 min-h-[44px] px-3.5 py-2 border border-slate-300 rounded-lg text-base sm:text-sm focus:border-campus-600 focus:ring-1 focus:ring-campus-600"
                   />
-                  <Button type="submit" size="sm" variant="primary" loading={requesting} icon={Send}>
+                  <Button type="submit" size="sm" variant="primary" loading={requesting} icon={Send} className="min-h-[44px] w-full sm:w-auto">
                     Request Item
                   </Button>
                 </div>
@@ -326,8 +326,8 @@ export default function MarketplaceDetailPage() {
             )}
 
             {!isOwner && myPendingRequest && item.status === 'Available' && (
-              <div className="mt-6 p-3 rounded-lg bg-campus-50 border border-campus-200 text-xs text-campus-800 flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-campus-600 shrink-0" />
+              <div className="mt-6 p-3.5 rounded-xl bg-campus-50 border border-campus-200 text-xs sm:text-sm text-campus-800 flex items-center gap-2.5">
+                <CheckCircle2 className="w-5 h-5 text-campus-600 shrink-0" />
                 <span>Your request has been sent to {item.owner_name}. Waiting for owner review.</span>
               </div>
             )}
@@ -399,6 +399,7 @@ export default function MarketplaceDetailPage() {
                         message: `Do you confirm that you have physically handed over "${item.title}" to ${acceptedRequest.requester_name}?`,
                       })
                     }
+                    className="w-full sm:w-auto min-h-[44px]"
                   >
                     Confirm Handover to {acceptedRequest.requester_name}
                   </Button>
@@ -443,6 +444,7 @@ export default function MarketplaceDetailPage() {
                         message: `Do you confirm that you have physically received "${item.title}" in good condition from ${item.owner_name}?`,
                       })
                     }
+                    className="w-full sm:w-auto min-h-[44px]"
                   >
                     Confirm Physical Receipt
                   </Button>

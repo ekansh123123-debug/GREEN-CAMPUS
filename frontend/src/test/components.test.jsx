@@ -9,6 +9,9 @@ import EmptyState from '../components/ui/EmptyState';
 import ConfirmDialog from '../components/ui/ConfirmDialog';
 import ImageUploadField from '../components/ui/ImageUploadField';
 import SimilarIssueModal from '../features/issues/SimilarIssueModal';
+import MobileBottomNav from '../components/layout/MobileBottomNav';
+import { AuthProvider } from '../context/AuthContext';
+import { MemoryRouter } from 'react-router-dom';
 
 describe('UI Components', () => {
   it('renders Button with variants and handles click events', () => {
@@ -196,5 +199,38 @@ describe('UI Components', () => {
     const validFile = new File(['image bytes'], 'evidence.png', { type: 'image/png' });
     fireEvent.change(input, { target: { files: [validFile] } });
     expect(handleSelect).toHaveBeenCalledWith(validFile);
+  });
+
+  it('renders mobile camera button and triggers camera capture on mobile devices', () => {
+    const handleSelect = vi.fn();
+    render(
+      <ImageUploadField
+        label="Evidence Photo"
+        onFileSelect={handleSelect}
+      />
+    );
+
+    const cameraBtn = screen.getByRole('button', { name: /Take Photo/i });
+    expect(cameraBtn).toBeInTheDocument();
+  });
+
+  it('renders MobileBottomNav with thumb-friendly quick navigation and center Report action', () => {
+    render(
+      <AuthProvider>
+        <MemoryRouter initialEntries={['/']}>
+          <MobileBottomNav />
+        </MemoryRouter>
+      </AuthProvider>
+    );
+
+    const nav = screen.getByRole('navigation', { name: /Mobile Bottom Navigation/i });
+    expect(nav).toBeInTheDocument();
+
+    // Student role items
+    expect(screen.getByRole('link', { name: /Student Dashboard/i })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /Campus Issues/i })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /Report New Campus Issue/i })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /Resource Exchange/i })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /My Reported Issues/i })).toBeInTheDocument();
   });
 });

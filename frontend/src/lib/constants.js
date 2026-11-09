@@ -34,6 +34,17 @@ export const CAMPUS_FLOORS = [
   '4th Floor',
 ];
 
+export const CAMPUS_AREAS = [
+  'Washroom',
+  'Laboratory',
+  'Classroom',
+  'Water Cooler',
+  'Corridor',
+  'Canteen',
+  'Workshop',
+  'Library',
+];
+
 export const ISSUE_STATUSES = {
   SUBMITTED: 'Submitted',
   ASSIGNED: 'Assigned',

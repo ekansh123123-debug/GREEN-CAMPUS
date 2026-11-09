@@ -105,13 +105,13 @@ export default function MarketplaceListPage() {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-8">
       <PageHeader
         title="Student Resource Exchange Marketplace"
         description="Encourage circular reuse on campus. Donate, sell, or barter textbooks, drafters, calculators, and lab equipment between verified DYPCOE engineering students."
         action={
           role === 'student' ? (
-            <Link to="/marketplace/create">
+            <Link to="/marketplace/create" className="hidden sm:inline-block">
               <Button variant="primary" icon={PlusCircle}>
                 Post Resource Item
               </Button>
@@ -121,24 +121,24 @@ export default function MarketplaceListPage() {
       />
 
       {/* Search and Filters */}
-      <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-xs mb-6 space-y-3">
+      <div className="bg-white p-3.5 sm:p-4 rounded-xl border border-slate-200 shadow-xs mb-6 space-y-3">
         <div className="flex flex-col md:flex-row items-stretch md:items-center gap-3">
           <div className="relative flex-1">
-            <Search className="w-4 h-4 absolute left-3 top-3 text-slate-400" />
+            <Search className="w-4 h-4 absolute left-3.5 top-3.5 text-slate-400" />
             <input
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search by title, edition, subject, or keywords..."
-              className="w-full pl-9 pr-4 py-2 border border-slate-300 rounded-md text-sm focus:border-campus-600 focus:ring-1 focus:ring-campus-600"
+              className="w-full pl-10 pr-4 min-h-[44px] py-2 border border-slate-300 rounded-lg text-base sm:text-sm focus:border-campus-600 focus:ring-1 focus:ring-campus-600"
             />
           </div>
 
-          <div className="flex flex-wrap items-center gap-2">
+          <div className="grid grid-cols-2 sm:flex sm:flex-wrap items-center gap-2">
             <select
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
-              className="px-3 py-2 border border-slate-300 rounded-md text-xs sm:text-sm bg-white text-slate-700"
+              className="min-h-[40px] px-3 py-2 border border-slate-300 rounded-lg text-xs sm:text-sm bg-white text-slate-700"
             >
               <option value="">All Categories</option>
               {MARKETPLACE_CATEGORIES.map((cat) => (
@@ -151,9 +151,9 @@ export default function MarketplaceListPage() {
             <select
               value={selectedType}
               onChange={(e) => setSelectedType(e.target.value)}
-              className="px-3 py-2 border border-slate-300 rounded-md text-xs sm:text-sm bg-white text-slate-700"
+              className="min-h-[40px] px-3 py-2 border border-slate-300 rounded-lg text-xs sm:text-sm bg-white text-slate-700"
             >
-              <option value="">All Types (Donate/Sell/Barter)</option>
+              <option value="">All Types</option>
               {Object.values(EXCHANGE_TYPES).map((type) => (
                 <option key={type} value={type}>
                   {type}
@@ -164,7 +164,7 @@ export default function MarketplaceListPage() {
             <select
               value={selectedCondition}
               onChange={(e) => setSelectedCondition(e.target.value)}
-              className="px-3 py-2 border border-slate-300 rounded-md text-xs sm:text-sm bg-white text-slate-700"
+              className="min-h-[40px] px-3 py-2 border border-slate-300 rounded-lg text-xs sm:text-sm bg-white text-slate-700"
             >
               <option value="">All Conditions</option>
               {ITEM_CONDITIONS.map((cond) => (
@@ -177,7 +177,7 @@ export default function MarketplaceListPage() {
             <select
               value={selectedStatus}
               onChange={(e) => setSelectedStatus(e.target.value)}
-              className="px-3 py-2 border border-slate-300 rounded-md text-xs sm:text-sm bg-white text-slate-700"
+              className="min-h-[40px] px-3 py-2 border border-slate-300 rounded-lg text-xs sm:text-sm bg-white text-slate-700"
             >
               <option value="">All Statuses</option>
               {Object.values(LISTING_STATUSES).map((status) => (
@@ -196,7 +196,7 @@ export default function MarketplaceListPage() {
                   setSelectedType('');
                   setSelectedStatus('');
                 }}
-                className="text-xs text-rose-600 hover:underline px-2 py-1"
+                className="text-xs text-rose-600 hover:underline px-2 py-1 col-span-2 sm:col-span-1 text-center font-medium"
               >
                 Clear
               </button>

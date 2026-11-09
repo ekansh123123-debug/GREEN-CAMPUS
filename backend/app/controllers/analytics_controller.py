@@ -4,7 +4,15 @@ from sqlalchemy.orm import Session
 from sqlalchemy import func
 from app.models.issue_model import Issue, IssueCategory, CampusLocation
 from app.models.marketplace_model import MarketplaceListing, ExchangeTransaction
-from app.schemas.analytics_schema import OverviewKPIResponse, CategoryBreakdownItem, BuildingHotspotItem, FloorHotspotItem, MarketplaceModeItem, TrendPoint
+from app.schemas.analytics_schema import (
+    OverviewKPIResponse,
+    CategoryBreakdownItem,
+    BuildingHotspotItem,
+    FloorHotspotItem,
+    CleanlinessLocationItem,
+    MarketplaceModeItem,
+    TrendPoint
+)
 
 class AnalyticsController:
     @staticmethod
@@ -118,10 +126,43 @@ class AnalyticsController:
         )
         f_hotspots = [FloorHotspotItem(building_name=f[0], floor_no=f[1], issue_count=f[2]) for f in floor_counts]
 
+        # Cleanliness & Sanitation metrics by building location
+        cleanliness_categories = ["Cleanliness", "Sanitation", "Waste Management"]
+        cleanliness_data = []
+        for b in building_counts:
+            b_name = b[0]
+            total_clean = (
+                db.query(Issue)
+                .join(CampusLocation, Issue.location_id == CampusLocation.location_id)
+                .join(IssueCategory, Issue.category_id == IssueCategory.category_id)
+                .filter(CampusLocation.building_name == b_name, IssueCategory.category_name.in_(cleanliness_categories))
+                .count()
+            )
+            resolved_clean = (
+                db.query(Issue)
+                .join(CampusLocation, Issue.location_id == CampusLocation.location_id)
+                .join(IssueCategory, Issue.category_id == IssueCategory.category_id)
+                .filter(
+                    CampusLocation.building_name == b_name,
+                    IssueCategory.category_name.in_(cleanliness_categories),
+                    Issue.status == "Resolved"
+                )
+                .count()
+            )
+            score = round((resolved_clean / total_clean) * 100.0, 1) if total_clean > 0 else 100.0
+            cleanliness_data.append(CleanlinessLocationItem(
+                building_name=b_name,
+                cleanliness_score_pct=score,
+                total_cleanliness_issues=total_clean,
+                resolved_cleanliness_issues=resolved_clean,
+                pending_cleanliness_issues=total_clean - resolved_clean
+            ))
+
         return {
             "category_breakdown": cat_breakdown,
             "building_hotspots": b_hotspots,
-            "floor_hotspots": f_hotspots
+            "floor_hotspots": f_hotspots,
+            "cleanliness_by_location": cleanliness_data
         }
 
     @staticmethod

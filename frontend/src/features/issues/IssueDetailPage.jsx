@@ -194,15 +194,15 @@ export default function IssueDetailPage() {
   const isAssignedStaff = role === 'staff' && (issue.assigned_to_id === user.id || !issue.assigned_to_id);
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8">
-      <Link to="/issues" className="inline-flex items-center gap-1 text-xs text-slate-500 hover:text-slate-800 mb-4">
-        <ArrowLeft className="w-3.5 h-3.5" /> Back to all issues
+    <div className="max-w-4xl mx-auto px-3 sm:px-6 py-4 sm:py-8">
+      <Link to="/issues" className="inline-flex items-center gap-1.5 min-h-[36px] text-xs font-medium text-slate-500 hover:text-slate-800 mb-3">
+        <ArrowLeft className="w-4 h-4" /> Back to all issues
       </Link>
 
       {/* Main Issue Header */}
-      <div className="bg-white rounded-xl border border-slate-200 p-6 shadow-xs mb-6">
-        <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-slate-100">
-          <div className="flex items-center gap-2">
+      <div className="bg-white rounded-xl border border-slate-200 p-4 sm:p-6 shadow-xs mb-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-slate-100">
+          <div className="flex items-center gap-2 flex-wrap">
             <span className="text-xs font-semibold px-2.5 py-1 rounded-md bg-slate-100 text-slate-700">
               {issue.category}
             </span>
@@ -217,6 +217,7 @@ export default function IssueDetailPage() {
                 size="sm"
                 icon={Shield}
                 onClick={() => setShowAdminModal(true)}
+                className="w-full sm:w-auto min-h-[44px]"
               >
                 Change Priority / Assign Staff
               </Button>
@@ -230,6 +231,7 @@ export default function IssueDetailPage() {
                 onClick={handleUpvoteToggle}
                 disabled={issue.reporter_id === user.id}
                 title={issue.reporter_id === user.id ? 'Cannot upvote own issue' : ''}
+                className="w-full sm:w-auto min-h-[44px]"
               >
                 {issue.upvoted_by_me ? 'Upvoted' : 'Upvote Issue'} ({issue.upvote_count})
               </Button>

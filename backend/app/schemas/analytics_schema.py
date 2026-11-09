@@ -31,6 +31,13 @@ class FloorHotspotItem(BaseModel):
     floor_no: str
     issue_count: int
 
+class CleanlinessLocationItem(BaseModel):
+    building_name: str
+    cleanliness_score_pct: float
+    total_cleanliness_issues: int
+    resolved_cleanliness_issues: int
+    pending_cleanliness_issues: int
+
 class MarketplaceModeItem(BaseModel):
     exchange_type: str
     count: int
@@ -45,6 +52,7 @@ class AnalyticsIssuesResponse(BaseModel):
     category_breakdown: List[CategoryBreakdownItem]
     building_hotspots: List[BuildingHotspotItem]
     floor_hotspots: List[FloorHotspotItem]
+    cleanliness_by_location: List[CleanlinessLocationItem] = []
 
 class AnalyticsMarketplaceResponse(BaseModel):
     mode_distribution: List[MarketplaceModeItem]

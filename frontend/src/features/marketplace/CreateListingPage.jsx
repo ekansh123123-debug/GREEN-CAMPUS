@@ -97,26 +97,26 @@ export default function CreateListingPage() {
   };
 
   return (
-    <div className="max-w-3xl mx-auto px-4 py-8">
+    <div className="max-w-3xl mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-8">
       <PageHeader
         title="List Academic Resource for Exchange"
         description="Share textbooks, drafters, calculators, and lab items with peer engineering students at DYPCOE Akurdi."
       />
 
       {errors.form && (
-        <div className="mb-6 p-4 rounded-lg bg-rose-50 border border-rose-200 text-rose-700 text-sm">
+        <div className="mb-6 p-4 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-sm">
           {errors.form}
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="bg-white p-6 rounded-xl border border-slate-200 shadow-xs space-y-6">
+      <form onSubmit={handleSubmit} className="bg-white p-4 sm:p-6 rounded-xl border border-slate-200 shadow-xs space-y-5 sm:space-y-6">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <FormField label="Category" id="category" required>
             <select
               id="category"
               value={category}
               onChange={(e) => setCategory(e.target.value)}
-              className="w-full px-3 py-2 border border-slate-300 rounded-md text-sm bg-white focus:border-campus-600 focus:ring-1 focus:ring-campus-600"
+              className="w-full min-h-[44px] px-3.5 py-2.5 border border-slate-300 rounded-lg text-base sm:text-sm bg-white focus:border-campus-600 focus:ring-1 focus:ring-campus-600"
             >
               {MARKETPLACE_CATEGORIES.map((c) => (
                 <option key={c} value={c}>
@@ -131,7 +131,7 @@ export default function CreateListingPage() {
               id="condition"
               value={condition}
               onChange={(e) => setCondition(e.target.value)}
-              className="w-full px-3 py-2 border border-slate-300 rounded-md text-sm bg-white focus:border-campus-600 focus:ring-1 focus:ring-campus-600"
+              className="w-full min-h-[44px] px-3.5 py-2.5 border border-slate-300 rounded-lg text-base sm:text-sm bg-white focus:border-campus-600 focus:ring-1 focus:ring-campus-600"
             >
               {ITEM_CONDITIONS.map((cond) => (
                 <option key={cond} value={cond}>
@@ -155,7 +155,7 @@ export default function CreateListingPage() {
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder="E.g., Engineering Drawing Mini-Drafter with Scales"
-            className="w-full px-3 py-2 border border-slate-300 rounded-md text-sm focus:border-campus-600 focus:ring-1 focus:ring-campus-600"
+            className="w-full min-h-[44px] px-3.5 py-2.5 border border-slate-300 rounded-lg text-base sm:text-sm focus:border-campus-600 focus:ring-1 focus:ring-campus-600"
           />
         </FormField>
 
@@ -263,7 +263,7 @@ export default function CreateListingPage() {
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             placeholder="Explain edition, author, marks/wear, and convenient on-campus meeting points like Library or Canteen..."
-            className="w-full px-3 py-2 border border-slate-300 rounded-md text-sm focus:border-campus-600 focus:ring-1 focus:ring-campus-600"
+            className="w-full p-3.5 border border-slate-300 rounded-lg text-base sm:text-sm focus:border-campus-600 focus:ring-1 focus:ring-campus-600"
           />
         </FormField>
 
@@ -276,11 +276,11 @@ export default function CreateListingPage() {
           onClear={handleClearImage}
         />
 
-        <div className="pt-4 border-t border-slate-100 flex items-center justify-end gap-3">
-          <Button variant="secondary" onClick={() => navigate('/marketplace')} disabled={submitting}>
+        <div className="pt-4 border-t border-slate-100 flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-end gap-2.5 sm:gap-3">
+          <Button variant="secondary" onClick={() => navigate('/marketplace')} disabled={submitting} className="w-full sm:w-auto">
             Cancel
           </Button>
-          <Button type="submit" variant="primary" loading={submitting} icon={PlusCircle}>
+          <Button type="submit" variant="primary" loading={submitting} icon={PlusCircle} className="w-full sm:w-auto">
             Publish Resource Listing
           </Button>
         </div>

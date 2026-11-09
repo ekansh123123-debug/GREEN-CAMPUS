@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import RoleBanner from './components/layout/RoleBanner';
 import Navbar from './components/layout/Navbar';
+import MobileBottomNav from './components/layout/MobileBottomNav';
 import Footer from './components/layout/Footer';
 
 // Code-split feature views for optimal page performance
@@ -39,7 +40,7 @@ function MainLayout({ children }) {
       {/* Navigation */}
       <Navbar />
       {/* Content */}
-      <main className="flex-1">
+      <main className="flex-1 pb-20 md:pb-8">
         <Suspense
           fallback={
             <div className="max-w-7xl mx-auto px-4 py-16 text-center text-xs text-slate-400">
@@ -50,6 +51,8 @@ function MainLayout({ children }) {
           {children}
         </Suspense>
       </main>
+      {/* Mobile Bottom Navigation */}
+      <MobileBottomNav />
       {/* Academic Footer */}
       <Footer />
     </div>

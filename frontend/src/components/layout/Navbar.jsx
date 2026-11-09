@@ -77,6 +77,10 @@ export default function Navbar() {
                   <PlusCircle className="w-4 h-4 text-emerald-700" />
                   Post Item
                 </Link>
+                <Link to="/analytics" className={navItemClass('/analytics')}>
+                  <BarChart3 className="w-4 h-4 text-campus-700" />
+                  Campus Stats
+                </Link>
               </>
             )}
 
@@ -89,6 +93,10 @@ export default function Navbar() {
                 <Link to="/issues" className={navItemClass('/issues')}>
                   <AlertCircle className="w-4 h-4" />
                   All Campus Issues
+                </Link>
+                <Link to="/analytics" className={navItemClass('/analytics')}>
+                  <BarChart3 className="w-4 h-4 text-campus-700" />
+                  Campus Stats
                 </Link>
               </>
             )}
@@ -191,6 +199,13 @@ export default function Navbar() {
               >
                 Post Resource Item
               </Link>
+              <Link
+                to="/analytics"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block px-3 py-2 rounded-md text-sm font-medium text-campus-700 font-semibold hover:bg-campus-50"
+              >
+                Campus Cleanliness & Stats
+              </Link>
             </>
           )}
 
@@ -209,6 +224,13 @@ export default function Navbar() {
                 className="block px-3 py-2 rounded-md text-sm font-medium text-slate-700 hover:bg-slate-50"
               >
                 All Campus Issues
+              </Link>
+              <Link
+                to="/analytics"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block px-3 py-2 rounded-md text-sm font-medium text-campus-700 font-semibold hover:bg-campus-50"
+              >
+                Campus Cleanliness & Stats
               </Link>
             </>
           )}
