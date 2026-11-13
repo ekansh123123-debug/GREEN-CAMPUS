@@ -2,10 +2,14 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
 from .settings import settings
 
-# Supabase and Render often provide 'postgres://', but SQLAlchemy 1.4+ requires 'postgresql://'
+# Normalize PostgreSQL URL for SQLAlchemy 2.x
+# Supabase and Render provide 'postgres://' or 'postgresql://'
+# In SQLAlchemy 2.1+, bare 'postgresql://' defaults to psycopg 3; normalize to psycopg2 when no driver is specified
 db_url = settings.DATABASE_URL
 if db_url.startswith("postgres://"):
-    db_url = db_url.replace("postgres://", "postgresql://", 1)
+    db_url = db_url.replace("postgres://", "postgresql+psycopg2://", 1)
+elif db_url.startswith("postgresql://") and not db_url.startswith("postgresql+"):
+    db_url = db_url.replace("postgresql://", "postgresql+psycopg2://", 1)
 
 connect_args = {}
 if db_url.startswith("sqlite"):

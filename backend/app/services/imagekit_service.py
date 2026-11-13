@@ -19,11 +19,17 @@ class ImageKitService:
         ):
             try:
                 from imagekitio import ImageKit
-                self.client = ImageKit(
-                    private_key=settings.IMAGEKIT_PRIVATE_KEY,
-                    public_key=settings.IMAGEKIT_PUBLIC_KEY,
-                    url_endpoint=settings.IMAGEKIT_URL_ENDPOINT
-                )
+                try:
+                    self.client = ImageKit(
+                        private_key=settings.IMAGEKIT_PRIVATE_KEY,
+                        public_key=settings.IMAGEKIT_PUBLIC_KEY,
+                        url_endpoint=settings.IMAGEKIT_URL_ENDPOINT
+                    )
+                except TypeError:
+                    # Support imagekitio v5+ SDK signature
+                    self.client = ImageKit(
+                        private_key=settings.IMAGEKIT_PRIVATE_KEY
+                    )
                 logger.info("ImageKit client initialized successfully.")
             except ImportError:
                 logger.warning("imagekitio package not installed; running ImageKit service in mock mode.")
