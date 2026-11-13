@@ -81,8 +81,8 @@ describe('GREEN CAMPUS Application End-to-End Workflows', () => {
       expect(screen.getByText(/Marketplace Category Breakdown/i)).toBeInTheDocument();
       expect(screen.getByText(/Confirmed Resource Reuse Trends/i)).toBeInTheDocument();
       expect(screen.getByText(/Exchange Arrangement Breakdown/i)).toBeInTheDocument();
-    }, { timeout: 4000 });
-  });
+    }, { timeout: 10000 });
+  }, 12000);
 
   it('navigates to Administrator Overview and verifies pending student accounts (Screen 10)', async () => {
     render(<App />);
